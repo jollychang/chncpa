@@ -3,6 +3,10 @@
 import urllib2
 import os
 from BeautifulSoup import BeautifulSoup
+import sys 
+reload(sys) 
+sys.setdefaultencoding('utf8') 
+
 
 def check_tickets(url):
     #url = 'http://www.chncpa.org/ycgp/jmxx/2011-03-30/87483.shtml'
