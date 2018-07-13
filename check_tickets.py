@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 #! /usr/bin/python
-import urllib2
 import requests
 import os
 import time
+import sys
+
 from BeautifulSoup import BeautifulSoup
 from pync import Notifier
-import sys
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -19,7 +20,7 @@ def check_tickets(url):
     headers['Cookie'] = 'coBUDrHx6D=MDAwM2IyNzNhNDQwMDAwMDAwMDQwZi1MIlYxMzkxNDYzOTYx; Hm_lvt_c0f83d11c5318938a003c0a00dcded64=1391681917; Hm_lpvt_c0f83d11c5318938a003c0a00dcded64=1391681917; _gscu_1063692112=91681917r202yo21; _gscs_1063692112=91681917yri46l21|pv:1; _gscbrs_1063692112=1; JSESSIONID=84yvSzhLyG52DK8JTDdr7hhJrX5nn3L18qp638t916FLmxBTYWs1!-194699159'
     r = requests.get(url, headers = headers)
     if keyword in r.text:
-        concert_title = get_title_by_ticket_url(url)
+        concert_title = get_concert_title(r.text)
         print concert_title
         print 'tickets!!!'
         Notifier.notify(concert_title, open=url.strip(), title='chncpa ticket is open')
@@ -28,9 +29,8 @@ def check_tickets(url):
     else:
         print 'please wait'
 
-def get_title_by_ticket_url(url):
-    concert_detail_data = urllib2.urlopen(url)
-    concert_detail_soup = BeautifulSoup(concert_detail_data)
+def get_concert_title(html):
+    concert_detail_soup = BeautifulSoup(html)
     concert_title = concert_detail_soup.head.title.string
     return concert_title
 
