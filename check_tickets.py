@@ -15,11 +15,10 @@ sys.setdefaultencoding('utf8')
 def check_tickets(url):
     #url = 'http://www.chncpa.org/ycgp/jmxx/2011-03-30/87483.shtml'
     print url
-    keyword = "【开票】"
+    KEYWORD = "【开票】"
     headers = {}
-    headers['Cookie'] = 'coBUDrHx6D=MDAwM2IyNzNhNDQwMDAwMDAwMDQwZi1MIlYxMzkxNDYzOTYx; Hm_lvt_c0f83d11c5318938a003c0a00dcded64=1391681917; Hm_lpvt_c0f83d11c5318938a003c0a00dcded64=1391681917; _gscu_1063692112=91681917r202yo21; _gscs_1063692112=91681917yri46l21|pv:1; _gscbrs_1063692112=1; JSESSIONID=84yvSzhLyG52DK8JTDdr7hhJrX5nn3L18qp638t916FLmxBTYWs1!-194699159'
     r = requests.get(url, headers = headers)
-    if keyword in r.text:
+    if KEYWORD in r.text:
         concert_title = get_concert_title(r.text)
         print concert_title
         print 'tickets!!!'
